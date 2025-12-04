@@ -12,11 +12,9 @@ import { listGroup, listWallet } from "@/services/http/followed-wallets.http";
 import { FollowedGroup, FollowedWallet } from "@/types/followed-wallet.type";
 import { useCookie } from "react-use";
 import { useUserDetails } from "@/hooks/UserDetails";
-import { Card } from "@/components/ui/card";
-import Link from "next/link";
+
 import TrackedWalletsSection from "../homepage/followed-wallets/FollowedWalletsSection";
 import HowToUse from "./HowToUse";
-import HiddenElementForSeo from "@/components/common/HiddenElementForSeo";
 import TrackedWalletsHiddenContentForSeo from "./TrackedWalletsHiddenContentForSeo";
 
 function FollowedWalletsPage() {
