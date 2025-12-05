@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import TokenPage from "@/components/features/token/TokenPage";
 import { formatNumberToSubscript } from "@/utils/PriceFormatter";
 import TokenAccordion from "@/components/features/token/TokenAccordion";
+import HiddenElementForSeo from "@/components/common/HiddenElementForSeo";
 import {
   Breadcrumb,
   BreadcrumbLink,
@@ -216,7 +217,9 @@ export default async function Token({ params }: Props) {
               }
               tokenDescription={tokenDescription.data.data.content}
             />
-            <div>{tokenDescription.data.data.content}</div>
+            <HiddenElementForSeo>
+              <div>{tokenDescription.data.data.content}</div>
+            </HiddenElementForSeo>
           </>
         )}
       <HowToUse />
