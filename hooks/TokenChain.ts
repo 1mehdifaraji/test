@@ -4,28 +4,20 @@ import useNetworkSelector from "@/store/tokenChains/networks";
 import { TOKEN_PAGE_PARAMS } from "@/utils/pageParams";
 import { useEffect } from "react";
 
-interface Props {
-  params: IParam;
-}
-
-type IParam = {
-  params: [string, string];
-};
-
-export const useTokenChain = ({params} : Props) => {
+export const useTokenChain = (params: [string, string]) => {
   const { setSelectedChain, availableChains } = useNetworkSelector();
 
   useEffect(() => {
-    if (params && params.params && params.params[TOKEN_PAGE_PARAMS.NETWORK]) {
-      const urlNetwwork = availableChains.find(
-        (chain) => chain.id === params.params[TOKEN_PAGE_PARAMS.NETWORK]
+    const networkParam = params?.[TOKEN_PAGE_PARAMS.NETWORK];
+
+    if (networkParam) {
+      const urlNetwork = availableChains.find(
+        (chain) => chain.id === networkParam
       );
 
-      if (urlNetwwork) setSelectedChain(urlNetwwork);
+      if (urlNetwork) {
+        setSelectedChain(urlNetwork);
+      }
     }
   }, [availableChains, params, setSelectedChain]);
-
-   return null
-}
-
-
+};
