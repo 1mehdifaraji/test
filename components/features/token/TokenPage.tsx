@@ -9,7 +9,7 @@ import TokenOverview from "./token-overview";
 import TokenChainComponent from "./TokenChain";
 
 interface Props {
-  params: IParam;
+  params: IParam
   searchParams?: searchParams;
   token: IToken;
   tokenData: IToken
@@ -18,6 +18,7 @@ interface Props {
 type IParam = {
   params: [string, string];
 };
+
 
 type searchParams = {
   network: string;

@@ -3,8 +3,13 @@
 import { useTokenChain } from "@/hooks/TokenChain";
 
 interface Props {
-  params: [string, string]; 
+  params: IParam;
 }
+
+type IParam = {
+  params: [string, string];
+};
+
 
 const TokenChainComponent = ({ params }: Props) => {
   useTokenChain(params);
