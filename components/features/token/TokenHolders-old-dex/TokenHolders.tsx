@@ -1,3 +1,5 @@
+'use client'
+
 import { IToken } from "@/types/token.type";
 import TokenHoldersAmountFilter from "./TokenHoldersAmountFilter";
 import TokenHoldersCompare from "./TokenHoldersCompare";

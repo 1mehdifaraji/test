@@ -40,6 +40,7 @@ export const getToken = (
     `${process.env.NEXT_PUBLIC_BASE_URL_ONE}/token/${tokenAddress}`,
     options
   );
+
 export const getTokenDescription = (tokenAddress: string): Promise<any> =>
   axios.get(
     `${process.env.NEXT_PUBLIC_BLOG_URL}/api/posts/contract/${tokenAddress}`
@@ -50,11 +51,13 @@ export const getGems = (options: AxiosRequestConfig): Promise<any> =>
     `${process.env.NEXT_PUBLIC_BASE_URL_THREE}/processedData/averagerank/${options.params?.network}`,
     options
   );
+
 export const getLatestGems = (options: AxiosRequestConfig): Promise<any> =>
   fetchData<any>(
     `${process.env.NEXT_PUBLIC_BASE_URL_THREE}/processedData/latesttime/${options.params?.network}`,
     options
   );
+
 export const fastGrowingTokens = (network: string, options: AxiosRequestConfig): Promise<any> =>
   fetchData<any>(
     `${process.env.NEXT_PUBLIC_BASE_URL_THREE}/processedData/growth/${network}`,
@@ -101,6 +104,7 @@ export const getTopTrends = (options: AxiosRequestConfig): Promise<IToken> =>
     `${process.env.NEXT_PUBLIC_BASE_URL_ONE}/toptrends`,
     options
   );
+  
 export const getNewTokens = (options: AxiosRequestConfig): Promise<IToken> =>
   fetchData<IToken>(
     `${process.env.NEXT_PUBLIC_BASE_URL_ONE}/new_pools`,

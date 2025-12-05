@@ -1,24 +1,19 @@
+'use client';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { ReactNode } from "react";
-import { FaChartArea, FaRankingStar } from "react-icons/fa6";
-import { GrStakeholder } from "react-icons/gr";
-import { IoShieldHalfOutline } from "react-icons/io5";
-import { MdChecklist } from "react-icons/md";
-import { RiExchangeDollarFill } from "react-icons/ri";
 import TokenSummary from "./TokenSummary";
 import TokenMarkets from "./Token-markets";
 import TokenScoring from "./Token-scoring";
 import TokenSecurityOldShit from "./TokenSecurity-old-shit/TokenSecurity";
 import RenderConditionalComponent from "@/components/common/RenderConditionalComponent";
 import TokenHolders from "./TokenHolders-old-dex/TokenHolders";
-import Paywall from "@/components/common/Paywall";
-import { IToken } from "@/types/token.type";
+import type { IToken } from "@/types/token.type";
 import TokenOverview from "./token-overview";
 import { merge } from "@/utils/merger";
 import { useQuery } from "@tanstack/react-query";
 import { getToken } from "@/services/http/token.http";
 import { IoMdInformationCircleOutline } from "react-icons/io";
-import { CgDatabase } from "react-icons/cg";
 import ChartSvg from "@/components/svg/ChartSvg";
 import HolderSvg from "@/components/svg/HolderSvg";
 import SecuritySvg from "@/components/svg/SecuritySvg";
@@ -26,6 +21,7 @@ import ScoringSvg from "@/components/svg/ScoringSvg";
 
 interface Props {
   token: IToken;
+    tokenData: IToken;
   network: string;
   tokenAddress: string;
 }
@@ -34,16 +30,8 @@ function MobileNavigator({
   token: tokenDataFromServer,
   tokenAddress,
   network,
+  tokenData
 }: Props) {
-  const {
-    data: tokenData,
-    isLoading: tokenLoading,
-    error: tokenError,
-  } = useQuery({
-    queryKey: ["token", tokenAddress, network],
-    queryFn: () => getToken(tokenAddress, { params: { network } }),
-    enabled: !!tokenAddress && !!network,
-  });
   const token = merge(tokenDataFromServer, tokenData) as IToken;
 
   const CustomizedTabTrigger = ({

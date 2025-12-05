@@ -1,4 +1,3 @@
-"use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FaRankingStar } from "react-icons/fa6";
 import { MdChecklist } from "react-icons/md";
@@ -9,52 +8,27 @@ import TokenSummary from "./TokenSummary";
 import { IoShieldHalfOutline } from "react-icons/io5";
 import { GrStakeholder } from "react-icons/gr";
 import RenderConditionalComponent from "@/components/common/RenderConditionalComponent";
-import Paywall from "@/components/common/Paywall";
 import TokenSecurityOldShit from "./TokenSecurity-old-shit/TokenSecurity";
 import TokenHolders from "./TokenHolders-old-dex/TokenHolders";
 import TokenMarkets from "./Token-markets";
 import TokenScoring from "./Token-scoring";
 import { merge } from "@/utils/merger";
-import { getToken } from "@/services/http/token.http copy";
-import { useQuery } from "@tanstack/react-query";
-import { getTokenDescription } from "@/services/http/token.http";
-import { useEffect, useState } from "react";
 import { ErrorBoundary } from "@/components/common/ErrorBoundry";
 
 interface Props {
   token: IToken;
   network: string;
   tokenAddress: string;
+  tokenData : IToken;
 }
 
 export default function TokenDetail({
   token: tokenDataFromServer,
   tokenAddress,
   network,
+  tokenData
 }: Props) {
-  // const { data: tokenDescription } = useQuery({
-  //   queryKey: ["token description", tokenAddress, network],
-  //   queryFn: () => getTokenDescription(tokenAddress),
-  //   enabled: !!tokenAddress && !!network,
-  // });
-  const {
-    data: tokenData,
-    isLoading: tokenLoading,
-    error: tokenError,
-  } = useQuery({
-    queryKey: ["token", tokenAddress, network],
-    queryFn: () => getToken(tokenAddress, { params: { network } }),
-    enabled: !!tokenAddress && !!network,
-  });
   const token = merge(tokenDataFromServer, tokenData) as IToken;
-
-  // const [tokenContent, setTokenContent] = useState<any | null>();
-
-  // useEffect(() => {
-  //   if (tokenDescription) {
-  //     setTokenContent(tokenDescription.data.data);
-  //   }
-  // }, [tokenDescription]);
 
   return (
     <>

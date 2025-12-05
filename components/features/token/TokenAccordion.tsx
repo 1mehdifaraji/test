@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import {
   AccordionContent,
@@ -17,9 +15,7 @@ function TokenAccordion({
   tokenImageUrl: string;
 }) {
   return (
-    <>
-      {tokenDescription && (
-        <Accordion type="single" collapsible className="w-full mt-3">
+         <Accordion type="single" collapsible className="w-full mt-3">
           <AccordionItem className="my-1" value={"how to use"}>
             <AccordionTrigger className="text-left rounded-xl transition-colors pl-4 my-2 flex justify-between items-center text-sm md:text-base">
               <p>Token Overview</p>
@@ -40,8 +36,6 @@ function TokenAccordion({
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-      )}
-    </>
   );
 }
 

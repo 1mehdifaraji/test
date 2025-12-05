@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import TokenPage from "@/components/features/token/TokenPage";
 import { formatNumberToSubscript } from "@/utils/PriceFormatter";
 import TokenAccordion from "@/components/features/token/TokenAccordion";
+import HiddenElementForSeo from "@/components/common/HiddenElementForSeo";
 import {
   Breadcrumb,
   BreadcrumbLink,
@@ -11,6 +12,7 @@ import {
 import HowToUse from "@/components/features/followed-wallets/HowToUse";
 import { TOKEN_PAGE_PARAMS } from "@/utils/pageParams";
 import { minifyContract } from "@/utils/truncate";
+import { getToken } from "@/services/http/token.http copy";
 
 interface Props {
   params: IParam;
@@ -176,14 +178,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Token({ params }: Props) {
+   const tokenAddress = params.params[TOKEN_PAGE_PARAMS.CONTRACT_ADDRESS]
+          const network= params.params[TOKEN_PAGE_PARAMS.NETWORK]
+
   const searchedToken = await searchToken({
     params: {
       currencyAddress: params.params[1],
     },
   });
 
-  const tokenDescription = await getTokenDescription(params.params[1]);
 
+  const tokenData = await getToken(tokenAddress, { params: { network } })
+
+  const tokenDescription = await getTokenDescription(params.params[1]);
+ 
   return (
     <div>
       <Breadcrumb className="mt-12 mb-4">
@@ -203,8 +211,7 @@ export default async function Token({ params }: Props) {
         DEX – Live {params.params[TOKEN_PAGE_PARAMS.NETWORK].toUpperCase()}{" "}
         Market Data
       </h1>
-      <TokenPage params={params} token={searchedToken} />
-
+      <TokenPage params={params} token={searchedToken} tokenData={tokenData} />
       {tokenDescription &&
         tokenDescription.data &&
         tokenDescription.data.data && (
@@ -216,7 +223,9 @@ export default async function Token({ params }: Props) {
               }
               tokenDescription={tokenDescription.data.data.content}
             />
-              <div>{tokenDescription.data.data.content}</div>
+            <HiddenElementForSeo>
+              <div dangerouslySetInnerHTML={{__html : tokenDescription.data.data.content}} /> 
+            </HiddenElementForSeo>
           </>
         )}
       <HowToUse />
